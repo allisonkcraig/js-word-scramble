@@ -9,10 +9,22 @@
     <script>
 
         function wordScrambler(word){
-
+            var wordLength = word.length;
+            var indexArray = [];
+            var scrambledWord = "";
+            while (indexArray.length < wordLength) {
+                randomI = Math.floor(Math.random() * wordLength);
+                if (indexArray.indexOf(randomI) === -1){
+                    indexArray.push(randomI);
+                }
+            }
+            for(var i = 0; i < wordLength; i++){
+                scrambledWord += word[indexArray[i]];
+            }
+            return scrambledWord;
         }
-        var WORDS     = ["booger", "apple", "hackbright", "mango"];
-        var SCRAMBLED = ["oogreb", "papel", "backrhight", "goman"];
+
+        var WORDS     = ["booger", "apple", "hackbright", "mango", "awesome", "balloonicorn", "elevensies", "food"];
 
         var playing = true;
 
@@ -23,18 +35,16 @@
             console.log(randomIndex);
             var chosenWord = WORDS[randomIndex];
             // Grab the corresponding scrambled word from the SCRAMBLED array
-            var scrambledChosenWord = SCRAMBLED[randomIndex];
+          //  var scrambledChosenWord = SCRAMBLED[randomIndex];
             //alert(scrambledChosenWord)
             // prompt the user to guess the original word when given the scrambled word
+            var scrambledChosenWord = wordScrambler(chosenWord);
             var userGuess = prompt("Guess the unscrambled word!", scrambledChosenWord);
             var userGuess = userGuess.trim().toLowerCase();
             // If the user guesses wrong, tell them they were wrong and the right word.
             if (userGuess !== chosenWord) {
                 alert("Your guess was incorrect, the right word is " + chosenWord);
-            }
-            
-            // If the user guesses the correct word, congratulate them.
-            else{
+            }else{
                 alert("Yay! You guessed the correct word!");
             }
             playing = confirm("Press OK To keep playing or Cancel to quit");
